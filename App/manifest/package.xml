@@ -5,5 +5,13 @@
 		<members>CaseFormController</members>
 		<name>ApexClass</name>
 	</types>
+	<types>
+		<members>site/laykers1</members>
+		<name>DigitalExperienceBundle</name>
+	</types>
+	<types>
+		<members>caseForm</members>
+		<name>LightningComponentBundle</name>
+	</types>
 	<version>58.0</version>
 </Package>
