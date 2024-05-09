@@ -1,4 +1,5 @@
 import { LightningElement, track } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import createCase from '@salesforce/apex/CaseFormController.createCase';
 
 export default class CaseForm extends LightningElement {
@@ -26,7 +27,7 @@ export default class CaseForm extends LightningElement {
     createCase() {
         // Check if required fields are filled
         if (!this.subject || !this.description || !this.priority) {
-            // Handle error
+            this.showToast('Error', 'Please fill in all required fields.', 'error');
             return;
         }
 
@@ -35,10 +36,21 @@ export default class CaseForm extends LightningElement {
             .then(result => {
                 // Handle success
                 console.log('Case created:', result);
+                this.showToast('Success', 'Case created successfully.', 'success');
             })
             .catch(error => {
                 // Handle error
                 console.error('Error creating Case:', error);
+                this.showToast('Error', 'An error occurred while creating the Case.', 'error');
             });
+    }
+
+    showToast(title, message, variant) {
+        const evt = new ShowToastEvent({
+            title: title,
+            message: message,
+            variant: variant
+        });
+        this.dispatchEvent(evt);
     }
 }
