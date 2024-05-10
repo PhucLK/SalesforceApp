@@ -1,0 +1,29 @@
+name: Salesforce CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Salesforce CLI
+        run: |
+          wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+          mkdir sfdx-cli
+          tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
+          ./sfdx-cli/install
+
+      - name: Authenticate with Salesforce Org
+        run: sfdx force:auth:jwt:grant --clientid ${{ secrets.SF_CLIENT_ID }} --jwtkeyfile ${{ secrets.SF_JWT_KEY_FILE }} --username ${{ secrets.SF_USERNAME }} --setdefaultdevhubusername --instanceurl ${{ secrets.SF_INSTANCE_URL }}
+
+      - name: Run Tests
+        run: sfdx force:apex:test:run
+
+      - name: Deploy Changes
+        run: sfdx force:source:deploy --sourcepath force-app/main/default --targetusername ${{ secrets.SF_USERNAME }}
