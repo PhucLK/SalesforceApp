@@ -5,6 +5,7 @@ public class AcceptCasesController {
     public AcceptCasesController(ApexPages.StandardController stdController) {
         this.c = (Case)stdController.getRecord();
         // Some code...
+        //update
     }
 
     public void massAccept() {
