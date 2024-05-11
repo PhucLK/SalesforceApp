@@ -20,7 +20,7 @@ jobs:
           ./sfdx-cli/install
 
       - name: Authenticate with Salesforce Org
-        run: sfdx force:auth:jwt:grant --clientid ${{ secrets.SF_CLIENT_ID }} --jwtkeyfile ${{ secrets.SF_JWT_KEY_FILE }} --username ${{ secrets.SF_USERNAME }} --setdefaultdevhubusername --instanceurl ${{ secrets.SF_INSTANCE_URL }}
+        run: sfdx force:auth:jwt:grant --clientid ${{ secrets.SF_CLIENT_ID }} --username ${{ secrets.SF_USERNAME }} --setdefaultdevhubusername --instanceurl ${{ secrets.SF_INSTANCE_URL }}
 
       - name: Run Tests
         run: sfdx force:apex:test:run
