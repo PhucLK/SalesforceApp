@@ -1,5 +1,5 @@
 public class AcceptCasesController {
-
+//sjlksdjfdsjf
     private Case c;
 
     public AcceptCasesController(ApexPages.StandardController stdController) {
